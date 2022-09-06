@@ -25,6 +25,29 @@ form.addEventListener('click', (e) =>{
     }
 })
 
+document.addEventListener('keyup', (e) =>{
+    if(e.key == 'Enter'){
+        const tarea = document.getElementById('tarea').value
+
+
+        if(form.target.matches("input[name=add]")){
+            if(tarea !== ""){
+                const li = document.createElement('li')
+                const span = document.createElement('span')
+                span.textContent = tarea
+
+                li.appendChild(span)
+                li.appendChild(delBtn())
+
+                list.appendChild(li)
+
+                document.querySelector('.not').style.visibility = "hidden"
+                document.querySelector('.not').style.display = "none"
+            }
+        }
+    }
+})
+
 function delBtn(){
     const boton = document.createElement('button')
 
