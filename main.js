@@ -1,5 +1,20 @@
 const form = document.querySelector('form')
 const list = document.getElementById('list')
+let id = 0
+const LISTA = []
+
+
+function add(tr, id){
+            const li = document.createElement('li')
+            const span = document.createElement('span')
+            span.textContent = tr
+            li.setAttribute("id", id)
+
+            li.appendChild(span)
+            li.appendChild(delBtn())
+
+            list.appendChild(li)
+}
 
 
 form.addEventListener('click', (e) =>{
@@ -10,14 +25,17 @@ form.addEventListener('click', (e) =>{
 
     if(e.target.matches("input[name=add]")){
         if(tarea !== ""){
-            const li = document.createElement('li')
-            const span = document.createElement('span')
-            span.textContent = tarea
 
-            li.appendChild(span)
-            li.appendChild(delBtn())
+            add(tarea, id)
+            LISTA.push({
+                id: id,
+                tr: tarea,
+                eliminado: false
+            })
 
-            list.appendChild(li)
+            id++
+
+            console.log(LISTA)
 
             document.querySelector('.not').style.visibility = "hidden"
             document.querySelector('.not').style.display = "none"
@@ -32,14 +50,14 @@ document.addEventListener('keyup', (e) =>{
 
         if(form.target.matches("input[name=add]")){
             if(tarea !== ""){
-                const li = document.createElement('li')
-                const span = document.createElement('span')
-                span.textContent = tarea
 
-                li.appendChild(span)
-                li.appendChild(delBtn())
+                add(tarea)
+                LISTA.push({
+                id: id,
+                tr: tarea
+                })
 
-                list.appendChild(li)
+                id++
 
                 document.querySelector('.not').style.visibility = "hidden"
                 document.querySelector('.not').style.display = "none"
@@ -57,7 +75,12 @@ function delBtn(){
     boton.addEventListener('click', (e)=>{
         const padre = e.target.parentElement
         list.removeChild(padre)
-        
+        LISTA.forEach(ele =>{
+            const elemento = Object.values(ele)
+            if(elemento[0] === parseInt(padre.id)){
+                LISTA.splice(LISTA.indexOf(ele), 1)
+            }
+        })     
 
         if(document.querySelectorAll('li').length === 0){
             document.querySelector('.not').style.visibility = "visible"
@@ -67,3 +90,4 @@ function delBtn(){
 
     return boton
 }
+
