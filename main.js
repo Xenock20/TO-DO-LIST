@@ -37,6 +37,7 @@ form.addEventListener('click', (e) =>{
 
             document.querySelector('.not').style.visibility = "hidden"
             document.querySelector('.not').style.display = "none"
+            document.getElementById('tarea').value = ""
 
             localStorage.setItem("LISTAS", JSON.stringify(LISTA));
         }
@@ -61,6 +62,7 @@ document.addEventListener('keyup', (e) =>{
 
                 document.querySelector('.not').style.visibility = "hidden"
                 document.querySelector('.not').style.display = "none"
+                document.getElementById('tarea').value = ""
 
                 localStorage.setItem("LISTAS", JSON.stringify(LISTA));
             }
@@ -98,7 +100,6 @@ function delBtn(){
 
 const data = localStorage.getItem("LISTAS")
 
-console.log(data.length)
 
 if(data.length > 2){
     LISTA = JSON.parse(data)
