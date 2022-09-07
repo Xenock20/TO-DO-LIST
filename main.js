@@ -1,7 +1,7 @@
 const form = document.querySelector('form')
 const list = document.getElementById('list')
 let id = 0
-const LISTA = []
+let LISTA = []
 
 
 function add(tr, id){
@@ -35,10 +35,10 @@ form.addEventListener('click', (e) =>{
 
             id++
 
-            console.log(LISTA)
-
             document.querySelector('.not').style.visibility = "hidden"
             document.querySelector('.not').style.display = "none"
+
+            localStorage.setItem("LISTAS", JSON.stringify(LISTA));
         }
     }
 })
@@ -61,6 +61,8 @@ document.addEventListener('keyup', (e) =>{
 
                 document.querySelector('.not').style.visibility = "hidden"
                 document.querySelector('.not').style.display = "none"
+
+                localStorage.setItem("LISTAS", JSON.stringify(LISTA));
             }
         }
     }
@@ -86,8 +88,29 @@ function delBtn(){
             document.querySelector('.not').style.visibility = "visible"
             document.querySelector('.not').style.display = "block"
         }
+
+        localStorage.setItem("LISTAS", JSON.stringify(LISTA));
     })
 
     return boton
 }
 
+
+const data = localStorage.getItem("LISTAS")
+
+console.log(data.length)
+
+if(data.length > 2){
+    LISTA = JSON.parse(data)
+    id = LISTA.length
+    cargarTareas(LISTA)
+
+    document.querySelector('.not').style.visibility = "hidden"
+    document.querySelector('.not').style.display = "none"
+}
+
+function cargarTareas(arr){
+    arr.forEach(ele =>{
+        add(ele.tr, ele.id)
+    })
+}
